@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { ReactElement } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from 'react-router-dom';
 
-function App() {
+import './App.css';
+import About from './components/about/About';
+import Home from './components/home/Home';
+import Users from './components/users/Users';
+import ErrorPage from './components/ErrorPage';
+import { AppContextWrapper } from './components/AppContext';
+import Summary from './components/Summary';
+
+
+const App = (): ReactElement => {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <AppContextWrapper>
+      <div className="App">
+        <header className="App-header">
+          <Router>
+            <Switch>
+              <Route path="/" exact component={Home}></Route>
+              <Route path="/about" component={About}></Route>
+              <Route path="/users" component={Users}></Route>
+              <Route path="/summary" component={Summary}></Route>
+              <Route path="*" componen={ErrorPage}></Route>
+
+            </Switch>
+          </Router>
+        </header>
+      </div>
+    </AppContextWrapper>
+  )
 }
 
 export default App;
